@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import data from "./data.json";
+import Card from "./components/Card";
+import style from "./style";
 
 export default function App() {
+  const renderFunction = ({ item }) => <Card data={item} />;
+  const keyFunction = (item) => item.id.toString();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={style.container}>
+      <Text
+        style={{
+          fontWeight: "bold",
+          color: "red",
+          fontSize: 40,
+          textAlign: "center",
+        }}
+      >
+        My Store
+      </Text>
+      <TextInput style={style.text} placeholder="Ara.." />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        keyExtractor={keyFunction}
+        numColumns={2}
+        data={data}
+        renderItem={renderFunction}
+      />
+      <StatusBar />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
